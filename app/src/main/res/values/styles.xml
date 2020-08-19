@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+<!--        <item name="android:windowBackground">@color/white</item>-->
     </style>
 
     <style name="AppTheme.Light.ImmersionTheme" parent="AppTheme">
@@ -15,6 +16,6 @@
         <!-- 需要设置这个 flag，contentView 才能延伸到状态栏 -->
         <item name="android:windowTranslucentNavigation">true</item>
         <!-- 状态栏覆盖在 contentView 上面，设置透明使 contentView 的背景透出来 -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
+<!--        <item name="android:statusBarColor">@color/transparent</item>-->
     </style>
 </resources>

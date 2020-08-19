@@ -5,10 +5,13 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import android.view.ViewGroup.MarginLayoutParams
+import android.view.ViewGroup.VISIBLE
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import butterknife.ButterKnife
 import butterknife.Unbinder
+import com.zcx.pic.getStatusBarHeight
 
 abstract class BaseFragment : Fragment() {
 
@@ -20,6 +23,8 @@ abstract class BaseFragment : Fragment() {
     private var originFullscreen: Boolean = false
     private var originOrientation: Int = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     private var viewDestroyed = false
+    private var fakedStatusBarView: View? = null
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,10 +61,6 @@ abstract class BaseFragment : Fragment() {
                 window.attributes?.flags ?: 0 and WindowManager.LayoutParams.FLAG_FULLSCREEN == WindowManager.LayoutParams.FLAG_FULLSCREEN
         }
 
-        if (fullscreen()) {
-            setFullscreen(true)
-        }
-
         val view = inflater.inflate(getLayoutId(), container, false)
         unbinder = ButterKnife.bind(this, view)
         this.contentView = view
@@ -67,7 +68,36 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        if (!fullscreen() && needFakedStatusBarView()) {
+            initFakedStatusBarView(view)
+        }
+
+        if (fullscreen()) {
+            setFullscreen(true)
+        }
+
         initViews(view)
+    }
+
+    private fun initFakedStatusBarView(view: View) {
+        if (fakedStatusBarView != null) {
+            return
+        }
+
+        val statusBarHeight: Int = activity.getStatusBarHeight()
+
+        val statusBarView = View(activity)
+        this.fakedStatusBarView = statusBarView
+        statusBarView.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight
+        )
+
+        setFakedStatusBarColor(getFakedStatusBarColor())
+
+        (view.parent as ViewGroup).addView(statusBarView, 0)
+
+        val layoutParams = view.layoutParams as MarginLayoutParams
+        layoutParams.setMargins(0, statusBarHeight, 0, 0)
     }
 
     protected fun setRequestedOrientation(orientation: Int) {
@@ -111,9 +141,9 @@ abstract class BaseFragment : Fragment() {
         activity.window?.statusBarColor = originStatusBarColor
     }
 
-    fun handleBackEvent() = false
+    open fun handleBackEvent() = false
 
-    fun fullscreen() = false
+    open fun fullscreen() = false
 
     protected fun setFullscreen(fullscreen: Boolean) {
         if (!isActivityInitialized()) {
@@ -126,6 +156,8 @@ abstract class BaseFragment : Fragment() {
             activity.window?.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
 
+        setFakedStatusBarViewVisible(!fullscreen)
+
         if (!viewDestroyed) {
             onFullscreenStateChange(fullscreen)
         }
@@ -137,6 +169,22 @@ abstract class BaseFragment : Fragment() {
 
     fun getStatusBarColor(): Int {
         return DEFAULT_STATUS_BAR_COLOR
+    }
+
+    protected fun setFakedStatusBarViewVisible(visible: Boolean) {
+        if (visible) {
+            initFakedStatusBarView(contentView)
+        }
+
+        fakedStatusBarView?.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
+    protected open fun needFakedStatusBarView(): Boolean = false
+
+    protected open fun getFakedStatusBarColor(): Int = Color.TRANSPARENT
+
+    open fun setFakedStatusBarColor(color: Int) {
+        fakedStatusBarView?.setBackgroundColor(color)
     }
 
     fun getRequestedOrientation(): Int {
