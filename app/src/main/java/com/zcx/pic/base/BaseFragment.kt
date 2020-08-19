@@ -96,7 +96,7 @@ abstract class BaseFragment : Fragment() {
         return if (::contentView.isInitialized) contentView.findViewById(id) else null
     }
 
-    protected abstract fun initViews(view: View)
+    protected open fun initViews(view: View) {}
 
     override fun onDestroyView() {
         super.onDestroyView()

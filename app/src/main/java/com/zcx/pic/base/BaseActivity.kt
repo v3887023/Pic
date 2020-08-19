@@ -1,11 +1,11 @@
 package com.zcx.pic.base
 
-import android.app.Activity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import butterknife.ButterKnife
 import butterknife.Unbinder
 
-abstract class BaseActivity : Activity() {
+abstract class BaseActivity : AppCompatActivity() {
     private lateinit var unbinder: Unbinder
 
     abstract fun getLayoutId(): Int
