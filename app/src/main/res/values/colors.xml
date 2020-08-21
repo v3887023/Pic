@@ -4,9 +4,11 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <color name="black">@color/color_000000</color>
     <color name="white">@color/color_FFFFFF</color>
     <color name="transparent">@color/color_00000000</color>
 
+    <color name="color_000000">#000000</color>
     <color name="color_FFFFFF">#FFFFFF</color>
     <color name="color_00000000">#00000000</color>
 </resources>

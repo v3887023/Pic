@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import butterknife.ButterKnife
 import butterknife.Unbinder
+import com.zcx.pic.utils.setFullScreen
 
 abstract class BaseActivity : AppCompatActivity() {
     private lateinit var unbinder: Unbinder
@@ -21,5 +22,9 @@ abstract class BaseActivity : AppCompatActivity() {
         if (::unbinder.isInitialized) {
             unbinder.unbind()
         }
+    }
+
+    protected fun setFullScreen(fullScreen: Boolean) {
+        window?.setFullScreen(fullScreen)
     }
 }

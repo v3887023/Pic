@@ -4,7 +4,6 @@ import android.appwidget.AppWidgetManager
 import android.content.IntentFilter
 import android.os.Bundle
 import com.zcx.pic.base.BaseActivity
-import com.zcx.pic.splash.SplashFragment
 
 class MainActivity : BaseActivity() {
     private var myAppWidgetProvider: MyAppWidgetProvider? = null
@@ -13,10 +12,6 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container, SplashFragment())
-            .commit()
 
 //        val properties = Properties()
 //        properties.load(resources.openRawResource(R.raw.unsplash))
