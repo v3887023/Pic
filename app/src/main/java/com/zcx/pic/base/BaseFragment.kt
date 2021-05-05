@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.view.ViewGroup.MarginLayoutParams
-import android.view.ViewGroup.VISIBLE
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import butterknife.ButterKnife

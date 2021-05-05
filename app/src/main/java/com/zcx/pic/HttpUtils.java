@@ -53,7 +53,6 @@ public class HttpUtils {
     }
 
 
-
     public interface LocationCallback {
         void onResponse(String location);
 

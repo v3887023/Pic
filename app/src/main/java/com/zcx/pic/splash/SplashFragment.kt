@@ -3,7 +3,6 @@ package com.zcx.pic.splash
 import android.graphics.Color
 import android.os.Handler
 import android.view.View
-import coil.api.load
 import com.bumptech.glide.Glide
 import com.zcx.pic.R
 import com.zcx.pic.Utils

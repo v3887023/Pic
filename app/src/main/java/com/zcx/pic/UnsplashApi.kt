@@ -10,6 +10,9 @@ import retrofit2.http.Query
  * @CreateDate: 2020/8/21
  */
 interface UnsplashApi {
+    companion object {
+        const val BASE_URL = "https://source.unsplash.com"
+    }
 
     interface Collections {
         /**

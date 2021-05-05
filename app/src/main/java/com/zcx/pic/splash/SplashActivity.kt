@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.animation.DecelerateInterpolator
-import coil.api.load
 import com.bumptech.glide.Glide
 import com.zcx.pic.MainActivity
 import com.zcx.pic.R
