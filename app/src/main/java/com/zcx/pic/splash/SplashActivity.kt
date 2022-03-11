@@ -5,12 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.animation.DecelerateInterpolator
+import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.zcx.pic.MainActivity
 import com.zcx.pic.R
 import com.zcx.pic.Utils
 import com.zcx.pic.base.BaseActivity
-import kotlinx.android.synthetic.main.fragment_splash.*
 
 /**
  * @Description:
@@ -24,8 +25,14 @@ class SplashActivity : BaseActivity() {
 
     private val handler = Handler()
 
+    private lateinit var imageIv: ImageView
+    private lateinit var textTv: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        imageIv = findViewById(R.id.imageIv)
+        textTv = findViewById(R.id.textTv)
 
         Glide.with(imageIv).load(Utils.getUrl("Fire")).into(imageIv)
         handler.postDelayed({
